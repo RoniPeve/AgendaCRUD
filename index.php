@@ -54,7 +54,19 @@
   <div class="fila">
       <div class="col-sm-12">
         <a href="#addnew" class="btn btn-primary" data-bs-toggle="modal"><span class="fa fa-plus"></span> Nuevo</a>
-      </div>
+      <?php 
+        session_start();
+        if(isset($_SESSION['message'])){
+          ?>
+          <div class="alert alert-dismissible alert-success d-flex justify-content-between align-items-center" style="margin-top: 10px">
+              <?php echo $_SESSION['message']; ?>
+              <button class="close" data-bs-dismiss="alert" style="border: none; outline: none; background-color: transparent;font-size: 1rem;">&times;</button>
+          </div>
+
+          <?php 
+            unset($_SESSION['message']);
+        }
+      ?>
       <table class="table table-bordered table-striped">
         <thead>
           <th>Id</th>
@@ -64,7 +76,40 @@
           <th>Direccion</th>
           <th>Acciones</th>
         </thead>
+        <tbody>
+          <?php
+           include_once('conexion.php');
+           $database = new ConectarDB();
+           $db = $database->open();
+           try{
+            $sql ='Select * from personas';
+            foreach($db ->query($sql) as $fila){
+              ?>
+              <tr>
+                <td> <?php echo $fila['idPersona'] ?></td>
+                <td> <?php echo $fila['Nombre'] ?></td>
+                <td> <?php echo $fila['Telefono'] ?></td>
+                <td> <?php echo $fila['Correo'] ?></td>
+                <td> <?php echo $fila['Direccion'] ?></td>
+                <td>
+                  <a href="#edit_<?php echo $fila["idPersona"]; ?>" class="btn btn-success btn sm" data-bs-toggle="modal" ><span class="fa fa-edit"></span>Editar</a>
+                  <a href="#delete_<?php echo $fila["idPersona"]; ?>" class="btn btn-danger btn sm" data-bs-toggle="modal" ><span class="fa fa-trash"></span>Eliminar</a>
+                  
+                </td>
+                <?php 
+                  include('EditarEliminar.php');
+                ?>
+              </tr>
+              <?php
+            }
+           }catch(PDOException $e){
+              echo 'Hay un error' .$e->getMessage();
+           }
+           $database->close();
+          ?>
+        </tbody>
       </table>
+      </div>
   </div>
 </div>
 <?php include('addModal.php'); ?>

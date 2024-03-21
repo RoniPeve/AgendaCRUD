@@ -4,11 +4,11 @@
         <div class="modal-content">
             <div class="modal-header">
             	<center><h4 class="modal-title" id="myModalLabel">Agregar Contacto</h4></center>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="borrarDatos()"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form action="agregar.php" method="POST">
+                    <form action="agregar.php" method="POST" id="mi_formulario">
                         <div class="row form-group mb-3">
                             <div class="col-sm-2">
                                 <label for="" class="control-label">Nombre:</label>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><span class="fa fa-close"></span>Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="borrarDatos()"><span class="fa fa-close"></span>Cancelar</button>
                 <button type="submit" name="add" class="btn btn-primary"><span class="fa fa-save"></span> Guardar</button>
             </div>
 
@@ -54,3 +54,8 @@
         
     </div>
 </div>
+<script>
+    function borrarDatos(){
+        document.getElementById("mi_formulario").reset();
+    }
+</script>
