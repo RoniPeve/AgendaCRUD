@@ -14,7 +14,8 @@
 <link href="bootstrap/css/custom.css" rel="stylesheet">
 <link href="bootstrap/css/estilos.css" rel="stylesheet" >
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
+<link href="" rel="stylesheet" >
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
 <meta name="theme-color" content="#712cf9">
 
   </head>
@@ -42,9 +43,9 @@
             </ul>
           </li>
         </ul>
-        <form role="search">
+        <!--<form role="search">
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        </form>
+        </form>-->
       </div>
     </div>
   </nav>
@@ -67,7 +68,7 @@
             unset($_SESSION['message']);
         }
       ?>
-      <table class="table table-bordered table-striped">
+      <table id="MiAgenda" class="table table-bordered table-striped" >
         <thead>
           <th>Id</th>
           <th>Nombre de contacto</th>
@@ -114,6 +115,40 @@
 </div>
 <?php include('addModal.php'); ?>
 <script src="bootstrap/js/bootstrap.bundle.min.js" ></script>
+<!-- Referenciar jQuery desde un CDN (Content Delivery Network) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+<script>
+  $(document).ready( function () {
+    $('#MiAgenda').DataTable();
+} );
+</script>
+<script>
+  var table = $('#MiAgenda').DataTable({
+    language:{
+          "decimal": "",
+          "emptyTable": "No hay información",
+          "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+          "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+          "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+          "infoPostFix": "",
+          "thousands": ",",
+          "lengthMenu": "Mostrar _MENU_ Entradas",
+          "loadingRecords": "Cargando...",
+          "processing": "Procesando...",
+          "search": "Buscar:",
+          "zeroRecords": "Sin resultados encontrados",
+          "paginate": {
+              "first": "Primero",
+              "last": "Ultimo",
+              "next": "Siguiente",
+              "previous": "Anterior"
+          }
+        },
+
+
+      });
+</script>
 </body>
 </html>
